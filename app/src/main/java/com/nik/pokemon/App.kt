@@ -2,6 +2,7 @@ package com.nik.pokemon
 
 import android.app.Application
 import com.nik.pokemon.di.remoteModule
+import com.nik.pokemon.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -10,7 +11,7 @@ class App: Application() {
         super.onCreate()
         startKoin {
             androidContext(this@App)
-            modules(remoteModule)
+            modules(listOf(remoteModule, viewModelModule))
         }
     }
 }
