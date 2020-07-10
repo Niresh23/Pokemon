@@ -1,15 +1,27 @@
 package com.nik.pokemon.di
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
+import android.os.Environment
+import androidx.room.Room
+import com.nik.pokemon.data.database.PokemonDao
+import com.nik.pokemon.data.database.PokemonDatabase
 import com.nik.pokemon.utils.Const
 import com.nik.pokemon.data.service.PokemonCatalogApi
 import com.nik.pokemon.data.service.PokemonDetailsApi
 import com.nik.pokemon.repository.remoteRepository.RemoteRepository
 import com.nik.pokemon.ui.main.MainViewModel
+import com.squareup.picasso.Picasso
+import com.squareup.picasso.Target
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
+import java.lang.Exception
 
 
 private fun getPokemonCatalogApi(retrofit: Retrofit) =
@@ -17,6 +29,9 @@ private fun getPokemonCatalogApi(retrofit: Retrofit) =
 
 private fun getPokemonDetailsApi(retrofit: Retrofit) =
     retrofit.create(PokemonDetailsApi::class.java)
+
+private fun getDatabaseInstance(context: Context) =
+    Room.databaseBuilder(context, PokemonDatabase::class.java, Const.DATABASE_NAME).build()
 
 val remoteModule = module {
 
@@ -37,6 +52,10 @@ val viewModelModule = module {
     viewModel {
         MainViewModel(get())
     }
+}
+val databaseModule = module {
+    single<PokemonDatabase> { getDatabaseInstance(androidContext())}
+    single<PokemonDao> { getDatabaseInstance(get()).pokemonDao()}
 }
 
 

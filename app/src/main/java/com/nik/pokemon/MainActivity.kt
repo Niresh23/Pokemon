@@ -3,6 +3,7 @@ package com.nik.pokemon
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.nik.pokemon.model.PokemonView
+import com.nik.pokemon.ui.details.DetailsFragment
 import com.nik.pokemon.ui.main.MainFragment
 import com.nik.pokemon.utils.OnPokemonClickListener
 
@@ -22,5 +23,10 @@ class MainActivity : AppCompatActivity(), OnPokemonClickListener {
         val key = "PokemonKey"
         val bundle = Bundle()
         bundle.putParcelable(key, pokemon)
+        val fragment = DetailsFragment.newInstance()
+        fragment.arguments = bundle
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, fragment)
+            .commitNow()
     }
 }

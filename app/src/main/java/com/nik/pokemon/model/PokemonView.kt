@@ -1,12 +1,13 @@
 package com.nik.pokemon.model
 
+import android.graphics.Bitmap
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class PokemonView (
     val name: String,
-    val posterUrl: String?,
+    val posterUrl: Bitmap,
     val id: Int,
     val height: Int,
     val weight: Int,
