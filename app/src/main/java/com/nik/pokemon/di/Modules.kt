@@ -10,6 +10,8 @@ import com.nik.pokemon.data.database.PokemonDatabase
 import com.nik.pokemon.utils.Const
 import com.nik.pokemon.data.service.PokemonCatalogApi
 import com.nik.pokemon.data.service.PokemonDetailsApi
+import com.nik.pokemon.repository.Repository
+import com.nik.pokemon.repository.databaseRepository.DatabaseRepository
 import com.nik.pokemon.repository.remoteRepository.RemoteRepository
 import com.nik.pokemon.ui.main.MainViewModel
 import com.squareup.picasso.Picasso
@@ -41,11 +43,8 @@ val remoteModule = module {
         .build() }
 
     single { RemoteRepository(get(), get()) }
-
     single<PokemonCatalogApi> { getPokemonCatalogApi(get()) }
     single<PokemonDetailsApi> { getPokemonDetailsApi(get()) }
-
-
 }
 
 val viewModelModule = module {
@@ -53,9 +52,13 @@ val viewModelModule = module {
         MainViewModel(get())
     }
 }
+val repositoryModule = module {
+    single<Repository> { Repository(get(), get())}
+}
 val databaseModule = module {
     single<PokemonDatabase> { getDatabaseInstance(androidContext())}
     single<PokemonDao> { getDatabaseInstance(get()).pokemonDao()}
+    single<DatabaseRepository> { DatabaseRepository(get()) }
 }
 
 

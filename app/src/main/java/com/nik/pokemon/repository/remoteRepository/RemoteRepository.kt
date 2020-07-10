@@ -16,9 +16,8 @@ import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers.io
 
 class RemoteRepository(private val pokemonCatalogApi: PokemonCatalogApi,
-                       private val pokemonDetailsApi: PokemonDetailsApi):
-Repository {
-    override fun execute(limit: Int, offset: Int): Single<List<PokemonView>> =
+                       private val pokemonDetailsApi: PokemonDetailsApi) {
+    fun execute(limit: Int, offset: Int): Single<List<PokemonView>> =
 
         pokemonCatalogApi.getPokemonCatalog(limit, offset)
             .flatMapObservable { response: PokemonCatalogResponse ->

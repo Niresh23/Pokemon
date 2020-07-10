@@ -2,6 +2,7 @@ package com.nik.pokemon.data.model
 
 import com.google.gson.annotations.SerializedName
 import com.nik.pokemon.model.PokemonView
+import com.nik.pokemon.utils.Utils
 
 data class PokemonDetailsResponse(
     val name: String,
@@ -60,11 +61,11 @@ data class PokemonDetailsResponse(
 
 fun PokemonDetailsResponse.toPokemonView() = PokemonView(
     name = this.name,
-    posterUrl = this.sprites.frontDefaultUrl,
+    poster = Utils.getImageFromUrl(this.sprites.frontDefaultUrl),
     id = this.id,
     height = this.height,
     weight = this.weight,
-    type = this.types.map { it.type.name },
+    type = this.types.map { it.type.name }.toString(),
     attack = this.stats.filter { information ->
         information.stat.name.equals("attack", true) }[0].baseStat,
     defence = this.stats.filter { information ->

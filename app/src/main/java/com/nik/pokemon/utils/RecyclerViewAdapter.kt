@@ -2,47 +2,40 @@ package com.nik.pokemon.utils
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.nik.pokemon.model.PokemonView
 import com.nik.pokemon.utils.Const.PRELOAD_FROM_SERVER_ITEMS_COUNT
 
 class RecyclerViewAdapter<T, S>(
     val clickListener: S? = null,
     val layout: Int,
-    val onScrollLastPageListener: (() -> Unit)? = null
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    comparator: DiffUtil.ItemCallback<T>
+) : ListAdapter<T, RecyclerView.ViewHolder>(comparator) {
 
-    val data: MutableList<T> = ArrayList()
-    var isAllItemLoaded: Boolean = false
-
-    fun update(items: List<T>) {
-        this.data.clear()
-        this.data.addAll(items)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        (holder as? Binder)?.bind(
+            data = getItem(position),
+            listener = clickListener
+        )
     }
 
-    fun addItems(items: List<T>) {
-        this.data.addAll(items)
-    }
+    override fun getItemViewType(position: Int): Int = layout
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return ViewHolderFactory.create(inflater, parent, viewType)
     }
 
-    override fun getItemCount() = data.size
+    companion object {
 
-    override fun getItemViewType(position: Int) = layout
+        val COMPARATOR = object : DiffUtil.ItemCallback<PokemonView>() {
+            override fun areItemsTheSame(oldItem: PokemonView, newItem: PokemonView): Boolean =
+                oldItem.id == newItem.id
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if(!isAllItemLoaded && position >= data.size - PRELOAD_FROM_SERVER_ITEMS_COUNT) {
-            onScrollLastPageListener?.invoke()
+            override fun areContentsTheSame(oldItem: PokemonView, newItem: PokemonView): Boolean =
+                oldItem == newItem
         }
-        (holder as? Binder)?.bind (
-            data = data[position],
-            listener = clickListener
-        )
     }
-
-
-
-
 }

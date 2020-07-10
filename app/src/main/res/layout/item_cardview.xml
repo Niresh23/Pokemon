@@ -35,7 +35,7 @@
                 android:adjustViewBounds="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:poster="@{pokemonView.posterUrl}"
+                app:poster="@{pokemonView.poster}"
                 tools:ignore="ContentDescription" />
 
             <TextView

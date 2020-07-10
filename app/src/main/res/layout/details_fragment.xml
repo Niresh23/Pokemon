@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:scaleType="fitXY"
             android:adjustViewBounds="true"
-            app:poster="@{pokemonView.posterUrl}"
+            app:poster="@{pokemonView.poster}"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView

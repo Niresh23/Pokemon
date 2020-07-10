@@ -13,35 +13,19 @@ import java.io.ByteArrayOutputStream
 import java.lang.Exception
 import java.util.*
 
-fun encode(image: Bitmap): String {
-    val baos = ByteArrayOutputStream()
-    image.compress(Bitmap.CompressFormat.PNG, 100, baos)
-    var imageBytes = baos.toByteArray()
-    return Base64.getEncoder().encodeToString(imageBytes)
-}
-
-fun decode(imageView: ImageView, imageString: String) {
-    val imageBytes = Base64.getDecoder().decode(imageString)
-    val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-    imageView.setImageBitmap(decodedImage)
-}
-
-fun getImageFromUrl(url: String): Single<Bitmap> =
-    Single.create{emitter ->
-        Picasso.get().load(url).into(object : Target{
-            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-
-            }
-
-            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
-                e?.let { emitter.onError(e) }
-            }
-
-            override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-                bitmap?.let { emitter.onSuccess(it) }
-            }
-        })
+object Utils {
+    fun encode(image: Bitmap): String {
+        val baos = ByteArrayOutputStream()
+        image.compress(Bitmap.CompressFormat.PNG, 100, baos)
+        val imageBytes = baos.toByteArray()
+        return Base64.getEncoder().encodeToString(imageBytes)
     }
 
+    fun decode( imageString: String?): Bitmap {
+        val imageBytes = Base64.getDecoder().decode(imageString)
+        return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+    }
 
-
+    fun getImageFromUrl(url: String?): Bitmap =
+        Picasso.get().load(url).get()
+}
