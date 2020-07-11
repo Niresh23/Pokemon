@@ -12,12 +12,13 @@ private val databaseRepository: DatabaseRepository) {
     fun getFromRemote(limit: Int, offset: Int): Single<List<PokemonView>> =
         remoteRepository.execute(limit, offset)
 
-    fun getFromDatabase(): Single<List<PokemonView>> =
-        databaseRepository.getAllPokemon()
+    fun getFromDatabase(limit: Int, offset: Int): Single<List<PokemonView>> =
+        databaseRepository.getPokemonOffset(limit, offset)
 
     fun updateDatabase(list: List<PokemonView>): Completable =
         databaseRepository.insertPokemon(list)
 
     fun clearDatabase(): Completable =
         databaseRepository.deleteAll()
+
 }

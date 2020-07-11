@@ -20,4 +20,8 @@ interface PokemonDao {
 
     @Query("DELETE FROM PokemonEntity")
     fun deleteAll(): Completable
+
+    @Query("SELECT * FROM PokemonEntity LIMIT:pageSize OFFSET:pageIndex")
+    fun getPokemonOffset(pageSize: Int, pageIndex: Int): Single<List<PokemonEntity>>
+
 }

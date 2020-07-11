@@ -46,7 +46,7 @@ class ProgressAdapter(val onRetryClickListener: (() -> Unit)? = null):
                 onRetryClickListener?.invoke()
             }
 
-            itemView.progressBar.visibility = toVisibility(loadState == LoadState.Loading)
+            itemView.landscapeProgressBar.visibility = toVisibility(loadState == LoadState.Loading)
             itemView.retryButton.visibility = toVisibility(loadState != LoadState.Loading)
         }
     }
