@@ -5,6 +5,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
 import android.text.BoringLayout
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.checkbox.MaterialCheckBox
 import com.nik.pokemon.R
 import com.nik.pokemon.model.PokemonView
 import com.nik.pokemon.utils.*
@@ -54,6 +56,11 @@ class MainFragment : Fragment() {
         }
     }
 
+    fun onCheckboxClicked(view: View) {
+
+    }
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.main_fragment, container, false)
@@ -74,6 +81,7 @@ class MainFragment : Fragment() {
             adapter = MergeAdapter(recyclerViewAdapter, progressAdapter)
             addOnScrollListenerPagination(manager) { viewModel.getMoreData(isConnected) }
         }
+
     }
 
     private fun startObserve() {

@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Pokemon</string>
     <string name="retry">Retry</string>
+    <string name="attack">attack</string>
+    <string name="defence">defence</string>
+    <string name="hp">hp</string>
+    <string name="diviner">: </string>
 </resources>

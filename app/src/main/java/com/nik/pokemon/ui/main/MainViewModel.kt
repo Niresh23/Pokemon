@@ -86,4 +86,10 @@ class MainViewModel(private val repository: Repository) : BaseViewModel() {
         isLoadingListInProgress = false
     }
 
+    fun sortArrayBy(attack: Boolean = false, defence: Boolean = false, hp: Boolean = false) {
+        if (attack && !defence && !hp) {
+            liveData.value = liveData.value?.toMutableList()?.sortedWith(compareBy <PokemonView>{ it.attack })?.reversed()
+        }
+    }
+
 }

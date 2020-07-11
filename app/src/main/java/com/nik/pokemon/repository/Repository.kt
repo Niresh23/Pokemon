@@ -20,5 +20,4 @@ private val databaseRepository: DatabaseRepository) {
 
     fun clearDatabase(): Completable =
         databaseRepository.deleteAll()
-
 }
