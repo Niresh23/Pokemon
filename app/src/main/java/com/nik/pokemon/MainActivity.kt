@@ -14,10 +14,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity(), OnPokemonClickListener {
 
-    private val viewModel: MainViewModel by viewModel()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.main_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
@@ -32,28 +31,9 @@ class MainActivity : AppCompatActivity(), OnPokemonClickListener {
         bundle.putParcelable(key, pokemon)
         val fragment = DetailsFragment.newInstance()
         fragment.arguments = bundle
-        supportFragmentManager.beginTransaction()
+        supportFragmentManager.beginTransaction().addToBackStack(null)
             .replace(R.id.container, fragment)
-            .commitNow()
-    }
-
-    fun onCheckboxClicked(view: View) {
-        if (view is MaterialCheckBox) {
-            var attack = false
-            var defence = false
-            var hp = false
-
-            view.findViewById<MaterialCheckBox>(R.id.attack_checkbox)?.let {
-                attack = it.isChecked
-            }
-            view.findViewById<MaterialCheckBox>(R.id.defence_checkbox)?.let {
-                defence = it.isChecked
-            }
-            view.findViewById<MaterialCheckBox>(R.id.hp_checkbox)?.let {
-                hp = it.isChecked
-            }
-            viewModel.sortArrayBy(attack, defence, hp)
-        }
+            .commit()
     }
 
 }

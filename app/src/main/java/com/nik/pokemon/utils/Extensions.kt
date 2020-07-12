@@ -9,7 +9,7 @@ fun Disposable.addTo(compositeDisposable: CompositeDisposable) {
     compositeDisposable.add(this)
 }
 
-fun RecyclerView.addOnScrollListenerPagination(
+fun RecyclerView.addOnScrollListenerPagination (
     layoutManager: LinearLayoutManager,
     callBack: () -> Unit
 ) {

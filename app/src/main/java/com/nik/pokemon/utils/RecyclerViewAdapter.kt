@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nik.pokemon.model.PokemonView
-import com.nik.pokemon.utils.Const.PRELOAD_FROM_SERVER_ITEMS_COUNT
 
 class RecyclerViewAdapter<T, S>(
     val clickListener: S? = null,

@@ -1,16 +1,9 @@
 package com.nik.pokemon.utils
 
-import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
-import android.widget.ImageView
 import com.squareup.picasso.Picasso
-import com.squareup.picasso.Target
-import io.reactivex.Observable
-import io.reactivex.Single
 import java.io.ByteArrayOutputStream
-import java.lang.Exception
 import java.util.*
 
 object Utils {

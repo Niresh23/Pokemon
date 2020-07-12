@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">Pokemon</string>
+    <string name="type">type</string>>
     <string name="retry">Retry</string>
     <string name="attack">attack</string>
     <string name="defence">defence</string>
+    <string name="height">height</string>
+    <string name="weight">weight</string>
+    <string name="name">name</string>
     <string name="hp">hp</string>
-    <string name="diviner">: </string>
+    <string name="diviner">:&#160;</string>
+    <string name="random">random</string>
 </resources>

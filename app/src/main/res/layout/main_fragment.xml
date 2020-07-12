@@ -7,42 +7,49 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainFragment">
 
+    <Button
+        android:id="@+id/btn_random"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/random"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkboxes" />
+
     <FrameLayout
         android:id="@+id/checkboxes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="horizontal">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/attack_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/attack"
             android:layout_gravity="start"
             android:layout_marginStart="16dp"
-            android:onClick="onCheckboxClicked"/>
+            android:text="@string/attack" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/defence_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/defence"
             android:layout_gravity="center"
-            android:onClick="onCheckboxClicked"/>
+            android:text="@string/defence" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/hp_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/hp"
             android:layout_gravity="end"
             android:layout_marginEnd="16dp"
-            android:onClick="onCheckboxClicked"/>
-
-
+            android:text="@string/hp" />
     </FrameLayout>
 
     <ProgressBar
@@ -55,12 +62,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkboxes" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_random" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pokemonList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar" />

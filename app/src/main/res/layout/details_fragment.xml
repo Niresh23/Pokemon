@@ -17,8 +17,8 @@
 
         <ImageView
             android:id="@+id/avatar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:scaleType="fitXY"
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@{pokemonView.name}"
+            android:text="@{@string/name + @string/diviner + pokemonView.name}"
             app:layout_constraintStart_toEndOf="@+id/avatar"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Type"
+            android:text="@{@string/type + @string/diviner + pokemonView.type }"
             app:layout_constraintStart_toEndOf="@+id/avatar"
             app:layout_constraintTop_toBottomOf="@+id/name" />
 
@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Height"
+            android:text="@{@string/height + @string/diviner + pokemonView.height}"
             app:layout_constraintStart_toStartOf="@+id/weight"
             app:layout_constraintTop_toBottomOf="@+id/weight" />
 
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Weight"
+            android:text="@{@string/weight + @string/diviner + pokemonView.weight}"
             app:layout_constraintStart_toEndOf="@+id/avatar"
             app:layout_constraintTop_toBottomOf="@+id/type" />
 
@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="Attack"
+            android:text="@{@string/attack + @string/diviner + pokemonView.attack}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="Defence"
+            android:text="@{@string/defence + @string/diviner + pokemonView.defence}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/attack" />
 
@@ -91,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="HP"
+            android:text="@{@string/hp + @string/diviner + pokemonView.hp}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/defence" />
     </androidx.constraintlayout.widget.ConstraintLayout>

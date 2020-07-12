@@ -25,11 +25,15 @@ import kotlinx.android.synthetic.main.main_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.RuntimeException
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), View.OnClickListener {
 
     private val viewModel: MainViewModel by viewModel()
 
     private var isConnected: Boolean = false
+
+    lateinit var attackCheckBox: MaterialCheckBox
+    lateinit var defenceCheckBox: MaterialCheckBox
+    lateinit var hpCheckBox: MaterialCheckBox
 
     companion object {
         fun newInstance() = MainFragment()
@@ -64,6 +68,28 @@ class MainFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.main_fragment, container, false)
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        attackCheckBox = view.findViewById<MaterialCheckBox>(R.id.attack_checkbox)
+        defenceCheckBox = view.findViewById<MaterialCheckBox>(R.id.defence_checkbox)
+        hpCheckBox = view.findViewById<MaterialCheckBox>(R.id.hp_checkbox)
+
+        attack_checkbox.setOnCheckedChangeListener { compoundButton, b ->
+            viewModel.sortArrayBy(attackCheckBox.isChecked, defenceCheckBox.isChecked, hpCheckBox.isChecked)
+        }
+        defenceCheckBox.setOnCheckedChangeListener { compoundButton, b ->
+            viewModel.sortArrayBy(attackCheckBox.isChecked, defenceCheckBox.isChecked, hpCheckBox.isChecked)
+        }
+        hpCheckBox.setOnCheckedChangeListener { compoundButton, b ->
+            viewModel.sortArrayBy(attackCheckBox.isChecked, defenceCheckBox.isChecked, hpCheckBox.isChecked)
+        }
+        btn_random.setOnClickListener {
+            viewModel.getRandom(isConnected)
+            setProgressBarVisibility(true)
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -109,5 +135,9 @@ class MainFragment : Fragment() {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
         return activeNetwork?.isConnectedOrConnecting == true
+    }
+
+    override fun onClick(view: View?) {
+        viewModel.sortArrayBy(attackCheckBox.isChecked, defenceCheckBox.isChecked, hpCheckBox.isChecked)
     }
 }

@@ -1,4 +1,4 @@
-package com.nik.pokemon
+package com.nik.pokemon.utils
 
 import android.graphics.Bitmap
 import android.widget.ImageView

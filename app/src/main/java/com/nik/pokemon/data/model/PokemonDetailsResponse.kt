@@ -65,7 +65,7 @@ fun PokemonDetailsResponse.toPokemonView() = PokemonView(
     id = this.id,
     height = this.height,
     weight = this.weight,
-    type = this.types.map { it.type.name }.toString(),
+    type = this.types.joinToString { it.type.name },
     attack = this.stats.filter { information ->
         information.stat.name.equals("attack", true) }[0].baseStat,
     defence = this.stats.filter { information ->

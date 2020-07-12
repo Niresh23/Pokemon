@@ -13,6 +13,7 @@ import com.nik.pokemon.utils.addTo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers.io
+import kotlin.random.Random
 
 class MainViewModel(private val repository: Repository) : BaseViewModel() {
 
@@ -28,6 +29,20 @@ class MainViewModel(private val repository: Repository) : BaseViewModel() {
     val liveData = MutableLiveData<List<PokemonView>>()
     var loadingState = MutableLiveData<LoadState>()
     val callbackLiveData = MutableLiveData<String>()
+
+    fun getRandom(isConnected: Boolean) {
+        if (isConnected) {
+            repository.getFromRemote(LIMIT, (0..900).random()).subscribeOn(io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(::handleOnSuccessGetData, ::handleFailureLoadData)
+                .addTo(compositeDisposable)
+        } else {
+            repository.getFromDatabase(LIMIT, (0..900).random()).subscribeOn(io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(::handleOnSuccessGetData, ::handleFailureLoadData)
+                .addTo(compositeDisposable)
+        }
+    }
 
     fun getData(isConnected: Boolean) {
         if (isConnected) {
@@ -87,8 +102,21 @@ class MainViewModel(private val repository: Repository) : BaseViewModel() {
     }
 
     fun sortArrayBy(attack: Boolean = false, defence: Boolean = false, hp: Boolean = false) {
+        Log.d("my_log", attack.toString() + defence.toString() + hp.toString())
         if (attack && !defence && !hp) {
             liveData.value = liveData.value?.toMutableList()?.sortedWith(compareBy <PokemonView>{ it.attack })?.reversed()
+        } else if (attack && defence && !hp) {
+            liveData.value = liveData.value?.toMutableList()?.sortedWith(compareBy <PokemonView>{ it.attack }.thenBy{it.defence})?.reversed()
+        } else if(attack && !defence && hp) {
+            liveData.value = liveData.value?.toMutableList()?.sortedWith(compareBy <PokemonView>{it.attack}.thenBy { it.hp })?.reversed()
+        } else if (attack && defence && hp) {
+            liveData.value = liveData.value?.toMutableList()?.sortedWith(compareBy <PokemonView>{ it.attack }.thenBy{it.defence}.thenBy { it.hp })?.reversed()
+        } else if (!attack && defence && !hp) {
+            liveData.value = liveData.value?.toMutableList()?.sortedWith(compareBy <PokemonView>{it.defence})?.reversed()
+        } else if (!attack && defence && hp) {
+            liveData.value = liveData.value?.toMutableList()?.sortedWith(compareBy <PokemonView>{it.defence}.thenBy {it.hp})?.reversed()
+        } else if (!attack && !defence && hp) {
+            liveData.value = liveData.value?.toMutableList()?.sortedWith(compareBy <PokemonView>{it.hp})?.reversed()
         }
     }
 
